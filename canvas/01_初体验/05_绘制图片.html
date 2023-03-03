@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05_绘制图片</title>
+</head>
+
+<body>
+  <canvas class="part" width="200" height="200" style="background-color: cadetblue;"></canvas>
+
+  <script>
+    window.onload = function () {
+      const el = document.querySelector('.part')
+      if (!el.getContext) return;
+      const ctx = el.getContext('2d');
+      // 绘制图片
+      const imageEL = new Image();
+      imageEL.src = './images/backdrop.png'
+      imageEL.onload = function () {
+        ctx.drawImage(imageEL, 0, 0);
+        ctx.beginPath();
+        ctx.moveTo(70, 70);
+        ctx.lineTo(70, 100)
+        ctx.lineTo(100, 80);
+        ctx.stroke()
+      }
+    }
+  </script>
+</body>
+
+</html>

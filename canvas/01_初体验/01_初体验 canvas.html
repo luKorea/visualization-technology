@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_初体验 canvas</title>
+  <style>
+    canvas {
+      background-color: #008c8c;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas class="part" width="300" height="300"></canvas>
+
+
+  <script>
+    window.onload = function () {
+      /** @type {HTMLCanvasElement} */
+      const el = document.querySelector('.part');
+      console.log(el);
+      if (!el.getContext) return;
+      const ctx = el.getContext('2d');
+      console.log(ctx);
+      // 绘制一个垂直水平居中的正方形 2x+w = w
+      ctx.fillStyle = '#fff'
+      ctx.fillRect(10, 10, 100, 100);
+      // 绘制一个边框矩形
+      ctx.strokeStyle = '#fff'
+      ctx.strokeRect(60, 60, 100, 100)
+      // 清除矩形区域
+      ctx.clearRect(60, 60, 60, 60)
+    }
+  </script>
+</body>
+
+</html>

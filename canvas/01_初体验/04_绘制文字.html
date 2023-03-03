@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04_绘制文字</title>
+</head>
+
+<body>
+  <canvas class="part" width="300" height="300" style="background-color: cadetblue;"></canvas>
+
+  <script>
+    window.onload = function () {
+      const el = document.querySelector('.part')
+      if (!el.getContext) return;
+      const ctx = el.getContext('2d');
+      // 绘制文本
+      ctx.fillText('korea', 100, 100);
+      ctx.font = '30px';
+    }
+  </script>
+</body>
+
+</html>

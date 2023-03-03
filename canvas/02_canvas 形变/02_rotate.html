@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02_rotate</title>
+</head>
+
+<body>
+  <canvas class="part" width="300" height="300" style="background-color: cadetblue;"></canvas>
+
+  <script>
+    window.onload = function () {
+      const el = document.querySelector('.part')
+      if (!el.getContext) return;
+      const ctx = el.getContext('2d');
+      ctx.save() //保存原始路径
+      ctx.translate(100, 100)
+      ctx.rotate(100, 80) // 先形变再绘制
+      ctx.rect(0, 0, 100, 100)
+      ctx.stroke()
+    }
+  </script>
+</body>
+
+</html>
