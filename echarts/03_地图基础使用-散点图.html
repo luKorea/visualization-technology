@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="echarts" style="height: 400px;"></div>
+  <script src="./lib/echarts.min.js"></script>
+  <script src="./geojson/china_geojson.js"></script>
+  <script>
+    function mapGeoData() {
+      const geo = china_geojson.features;
+      const geoObj = {};
+      for (const item of geo) {
+        geoObj[item.properties.name] = item.properties.cp;
+      }
+      return geoObj;
+    }
+    function convertData(data) {
+      const geoData = mapGeoData();
+      const list = []
+      for (const item of data) {
+        const selectName = Object.keys(geoData).find(i => i === item.name)
+        if (selectName) {
+          list.push({
+            name: selectName,
+            value: [...geoData[selectName], item.value]
+          })
+        }
+      }
+      return list
+    }
+    convertData([
+      { name: '广东', value: 100 },
+      { name: '北京', value: 200 }
+    ])
+  </script>
+  <script>
+    window.onload = function () {
+
+      // 1. 注册地图
+      echarts.registerMap('china', {
+        geoJSON: china_geojson
+      })
+      let echart = echarts.init(document.getElementById('echarts'))
+      let options = {
+        tooltip: {},
+        // 2. 配置地图映射
+        geo: {
+          map: 'china',
+          roam: true,
+          // 地图着色
+          // =======地图着色=========
+          itemStyle: {
+            areaColor: "#023677", // 地图区域的颜色。
+            borderColor: "#1180c7", // 图形的描边颜色。
+          },
+
+          emphasis: {
+            itemStyle: {
+              areaColor: "#4499d0",
+            },
+            label: {
+              color: "white",
+            },
+          },
+          // =======地图着色=========
+        },
+        series: [
+          {
+            name: '中国地图',
+            type: "effectScatter",
+            geoIndex: 0, // geo 支持数组，默认是 0
+            coordinateSystem: "geo", // 使用地理坐标系，通过 geoIndex 指定相应的地
+            data: [
+              {
+                name: "广东",
+                value: [113.280637, 23.125178, 193],
+              },
+              {
+                name: "北京",
+                value: [116.405285, 39.904989, 199],
+              },
+            ],
+            symbolSize: function ([cod, lod, val]) {
+              console.log(cod, lod, val);
+              return val / 30;
+            },
+          }
+        ]
+      }
+      echart.setOption(options)
+    }
+  </script>
+</body>
+
+</html>
